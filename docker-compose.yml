@@ -18,13 +18,12 @@ services:
       - .:/app
     ports:
       - "5000:5000"
-    depends_on:
-      - db
     environment:
       FLASK_ENV: development
       DATABASE_URI: postgresql://postgres:admin@db:5432/proyecto_final_DO
     networks:
       - mi-red
+    restart: on-failure:3
 
 networks:
   mi-red:
