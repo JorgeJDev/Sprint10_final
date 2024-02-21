@@ -1,50 +1,32 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Docker CI
+name: Python CI
 
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
+    
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
-    services:
-      docker:
-        image: docker:19.03
-        options: --privileged
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
         
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
-      
-    - name: Cache Docker layers
-      uses: actions/cache@v2
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-buildx-
-          
-    - name: Docker Compose up
-      run: |
-        docker-compose up -d --build
+        python-version: 3.8
 
-    - name: Wait for DB to be ready
+    - name: Install dependencies
       run: |
-        until docker-compose exec db pg_isready ; do sleep 1 ; done
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
     - name: Run tests
       run: |
-        docker-compose exec app python -m pytest
-
-    - name: Docker Compose down
-      run: |
-        docker-compose down
-
+        python -m pytest
 
