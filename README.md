@@ -68,12 +68,23 @@ curl -X DELETE http://localhost:5000/data/"ID"
 ##### Crear la imagen
 
 ``
-docker build -t JorgeJDev/proyecto_final
+docker build -t proyecto_final .
+``
+
+
+``
+docker build -f Dockerfile_db -t proyecto_final__db .
 ``
 
 ``
 docker run -p 5000:5000 -d JorgeJDev/proyecto_final
 ``
+
+``
+docker run --name db_container -p 5432:5432 -e POSTGRES_DB=proyecto_final_DO -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=admin -d proyecto_final__db
+``
+
+
 
 
 

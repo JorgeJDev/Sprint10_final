@@ -5,7 +5,7 @@ class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY", "your_secret_key")
 
     # Database configuration
-    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:admin@localhost:5432/proyecto_final_DO"
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI", "postgresql://postgres:admin@localhost:5432/proyecto_final_DO")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
@@ -20,7 +20,7 @@ class ProductionConfig(Config):
 class TestingConfig(Config):
     TESTING = True
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = "postgresql://postgres:admin@localhost:5432/proyecto_final_DO"
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI", "postgresql://postgres:admin@localhost:5432/proyecto_final_DO")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 # Dictionary to map environment names to configuration classes
