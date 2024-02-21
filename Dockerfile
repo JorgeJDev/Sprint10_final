@@ -1,16 +1,17 @@
-# start by pulling the python image
+# Pull de la imagen de python
 FROM python:3.8-alpine
 
-# copy the requirements file into the image
+# copiamos requeriments.txt en el archivo
 COPY ./requirements.txt /app/requirements.txt
 
-# switch working directory
+# cambiamos el directorio
 WORKDIR /app
 
-# install the dependencies and packages in the requirements file
+# Instalamos todas las dependencias
 RUN pip install -r requirements.txt
 
-# copy every content from the local file to the image
+# Copiamos todo el contenido del local hacia la imagen
 COPY . /app
 
+# Código de arranque para la imagen
 CMD ["python", "run.py"]
