@@ -9,7 +9,7 @@ from app.models import Data
 def client():
     app = create_app("testing")
     app.config.update({
-        "SQLALCHEMY_DATABASE_URI": "postgresql://postgres:admin@localhost:5432/test_proyecto_final_DO"
+        "SQLALCHEMY_DATABASE_URI": "postgresql://postgres:admin@localhost:5432/proyecto_final_DO"
     })
 
     with app.test_client() as client:

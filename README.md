@@ -1,5 +1,18 @@
 # Proyecto final DevOps
 
+### Primeros pasos en local
+
+##### Crear venv
+``
+python3 -m venv venv
+``
+
+###3# Arrancar venv
+``
+source venv/bin/activate
+.venv1\Scripts\activate 
+``
+
 ### Creación BBDD
 
 #### Crear Tabla
@@ -19,16 +32,21 @@ INSERT INTO data (name) VALUES ('Value1'), ('Value2');
 SELECT * FROM data;
 ``
 
+##### Instalar requeriments
+``
+pip install -r requirements.txt
+``
+
 ### Iniciar el proyecto
 
 #### Exportar las variables de entorno para pruebas
 ``
-$ export DATABASE_URI="postgresql://postgres:admin@localhost:5432/proyecto_final_DO"
+export DATABASE_URI="postgresql://postgres:admin@localhost:5432/proyecto_final_DO"
 ``
 
 #### Iniciar el proyect
 ``
-py run.py
+python run.py
 ``
 
 ### Endpoints con la BBDD
@@ -45,3 +63,17 @@ curl -X POST http://localhost:5000/data -H "Content-Type: application/json" -d '
 ``
 curl -X DELETE http://localhost:5000/data/"ID"
 ``
+
+### Dockerización
+##### Crear la imagen
+
+``
+docker build -t JorgeJDev/proyecto_final
+``
+
+``
+docker run -p 5000:5000 -d JorgeJDev/proyecto_final
+``
+
+
+
