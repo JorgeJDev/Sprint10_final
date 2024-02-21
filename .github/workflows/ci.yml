@@ -22,6 +22,14 @@ jobs:
 
     - name: Build and start the containers
       run: docker-compose up -d --build
+      
+    - name: Wait for PostgreSQL
+      run: |
+       until PGPASSWORD=admin psql -h localhost -p 5432 -U postgres -c '\q'; do
+          echo "Postgres is unavailable - sleeping"
+          sleep 1
+       done
+       echo "Postgres is up - executing command"
 
     - name: Run migrations (if necessary)
       run: docker-compose exec -T app python manage.py
