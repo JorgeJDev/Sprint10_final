@@ -1,8 +1,10 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
+# Nombre del flujo de trabajo
 name: CI with Docker
 
+# Desencadenadores del flujo de trabajo: se ejecutará en push a la rama 'main' y en pull requests hacia 'main'
 on:
   push:
     branches: [ main ]
@@ -10,25 +12,33 @@ on:
     branches: [ main ]
 
 jobs:
+  # Job para construir y probar la aplicación
   build-and-test:
+    # Entorno de ejecución: Ubuntu
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      # Clonar el repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Docker
-      uses: docker/setup-buildx-action@v1
+      # Configurar Docker
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
 
-    - name: Build and start the containers
-      run: docker-compose up -d --build
+      # Construir y ejecutar los contenedores
+      - name: Build and start the containers
+        run: docker-compose up -d --build
 
-    - name: Run migrations (if necessary)
-      run: docker-compose exec -T app python manage.py
+      # Ejecutar migraciones si fuera necesario
+      - name: Run migrations (if necessary)
+        run: docker-compose exec -T app python manage.py
 
-    - name: Run tests
-      run: docker-compose exec -T app python -m pytest
+      # Ejecutar tests
+      - name: Run tests
+        run: docker-compose exec -T app python -m pytest
 
-    - name: Shutdown and clean up
-      if: always()
-      run: docker-compose down
+      # Paramos y limpiamos los contenedores
+      - name: Shutdown and clean up
+        if: always()
+        run: docker-compose down

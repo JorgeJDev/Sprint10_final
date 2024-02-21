@@ -2,29 +2,36 @@ version: '3.8'
 services:
   db:
     image: postgres:latest
+    # Variables de entorno para configurar la base de datos
     environment:
       POSTGRES_DB: proyecto_final_DO
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
+     # Mapeo de puertos
     ports:
       - "5432:5432"
+    # Configuración de la red para unir contenedores
     networks:
       - mi-red
 
   app:
+    # Construcción de la imagen a partir del Dockerfile
     build: .
+    # Comando a ejecutar al iniciar el contenedor
     command: sh -c "python manage.py && python run.py"
     volumes:
       - .:/app
+    # Mapeo de puertos
     ports:
       - "5000:5000"
+    # Variables de entorno
     environment:
       FLASK_ENV: development
       DATABASE_URI: postgresql://postgres:admin@db:5432/proyecto_final_DO
     networks:
       - mi-red
     restart: on-failure:3
-
+# Definición de la red personalizada
 networks:
   mi-red:
     driver: bridge
