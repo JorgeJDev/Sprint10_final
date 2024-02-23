@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 COPY . /app
 
 # Código de arranque para la imagen
-CMD ["python", "run.py"]
+CMD python manage.py && python run.py
