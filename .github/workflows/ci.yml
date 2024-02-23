@@ -30,7 +30,6 @@ jobs:
     - name: Build and start the containers
       run: docker-compose up -d --build
 
-
     # Creamos la BBDD
     - name: Run migrations 
       run: docker-compose exec -T app python manage.py

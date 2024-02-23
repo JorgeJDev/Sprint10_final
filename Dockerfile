@@ -16,8 +16,6 @@ COPY . /app
 # Instala netcat
 RUN apk add --no-cache netcat-openbsd
 
-RUN sed -i 's/\r$//' manage.sh
-
 # Hacemos que manage.sh sea ejecutable
 RUN chmod +x manage.sh
 
