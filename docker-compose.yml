@@ -16,7 +16,6 @@ services:
       DATABASE_URI: postgresql://postgres:admin@db:5432/proyecto_final_DO
     networks:
       - mi-red
-    restart: on-failure:3
     
   db:
     image: postgres:latest
