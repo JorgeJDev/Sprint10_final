@@ -1,0 +1,14 @@
+---
+- name: Create docker app
+  hosts: localhost
+  tasks: 
+    - name: Run docker compose
+      shell: docker-compose up --build -d
+
+    - name: Wait for 10s
+      wait_for:
+        timeout: 10
+
+    - name: Test app is working
+      shell: docker-compose exec app python -m pytest 
+      
