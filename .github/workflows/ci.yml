@@ -29,15 +29,7 @@ jobs:
     # Construir y ejecutar los contenedores
     - name: Build and start the containers
       run: docker-compose up -d --build
-    
-    # Esperamos a que la base de datos esté lista
-    - name: Wait for PostgreSQL
-      run: |
-       until PGPASSWORD=admin psql -h localhost -p 5432 -U postgres -c '\q'; do
-          echo "Postgres is unavailable - sleeping"
-          sleep 1
-       done
-       echo "Postgres is up - executing command"
+
 
     # Creamos la BBDD
     - name: Run migrations 

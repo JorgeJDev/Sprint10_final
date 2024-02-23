@@ -13,5 +13,13 @@ RUN pip install -r requirements.txt
 # Copiamos todo el contenido del local hacia la imagen
 COPY . /app
 
-# Código de arranque para la imagen
-CMD python manage.py && python run.py
+# Instala netcat
+RUN apk add --no-cache netcat-openbsd
+
+RUN sed -i 's/\r$//' manage.sh
+
+# Hacemos que manage.sh sea ejecutable
+RUN chmod +x manage.sh
+
+# Establecemos el punto de entrada a manage.sh
+CMD ["/bin/sh", "./manage.sh"]
