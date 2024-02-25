@@ -2,6 +2,35 @@
 
 ### Primeros pasos en local
 
+##### Instalar entorno virtual
+``
+python3 -m venv venv
+``
+
+##### Activar entorno virtual
+``
+source venv/bin/activate
+``
+
+##### Instalar frameworks
+``
+pip install -r requirements.txt
+``
+
+##### Iniciar el proyecto
+
+``
+chmod +x manage.sh
+``
+``
+./manage.sh
+``
+
+##### Iniciar los test
+``
+python -m pytest
+``
+
 ### Iniciar el proyecto
 ``
 docker-compose up --build
